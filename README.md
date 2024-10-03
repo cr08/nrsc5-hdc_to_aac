@@ -1,52 +1,31 @@
-### Dependencies
+# HDC_TO_AAC
 
-The following packages are required:
+The included program was taken from an older version of the [NRSC-5](https://github.com/theori-io/nrsc5) repository where it still exists and is usable as a standalone application. It has since been removed from that repo as it is unsupported and some broadcasts may have issues.
 
- * libao-dev
- * libfftw3-dev
- * rtl-sdr
+In my own personal testing with stations local to me, it is 100% usable. That said, this fork is provided as-is with no support.
 
 ### Build Instructions
 
-     $ mkdir build && cd build
-     $ cmake [options] ..
-     $ make
+     $ gcc -o hdc_to_aac src/hdc_to_aac.c
 
-Available build options:
+     $ gcc -o hdc_to_aac_std src/hdc_to_aac_std.c
 
-    -DUSE_NEON=ON        Use NEON instructions. [ARM, default=OFF]
-    -DUSE_SSE=ON         Use SSSE3 instructions. [x86, default=OFF]
+In the future I would like to combine these into one program but C code is new to me. Will gladly accept PR's!
 
-You can test the program using the included sample capture:
+### Usage
 
-     $ xz -d < ../support/sample.xz | src/nrsc5 -r - 0
+The `nrsc5` application that tunes the HD Radio feeds and is capable of dumping an HDC feed is not included here. Please check the repository linked above for instructions how to compile and use that.
 
-### Building with [Homebrew](https://brew.sh)
+As of writing, there are two versions of this program:
 
-     $ brew install --HEAD https://raw.githubusercontent.com/theori-io/nrsc5/master/nrsc5.rb
+hdc_to_aac - Takes file input and output. Export a raw HDC dump from `nrsc5` and output to an AAC file.
 
-## Usage
+     hdc_to_aac ~/file.hdc ~/file.aac
 
-This was designed for use with an RTL-SDR dongle since that was our testing platform.
+hdc_to_aac_std - Takes both stdin and stdout data.
 
-Options:
+     nrsc5 --dump-hdc - 99.5 0 | ./hdc_to_aac_std | echo > file.aac
 
-       frequency                       rtl-sdr center frequency
-                                         (do not provide frequency when reading from file)
-       program                         audio program to decode
-                                         (0, 1, 2, or 3)
-       -d device-index                 rtl-sdr device
-       -g gain                         rtl-sdr gain (0.1 dB)
-                                         (automatic gain selection if not specified)
-       -p ppm-error                    rtl-sdr ppm error
-       -r samples-input                read samples from input file
-       -w samples-output               write samples to output file
-       -o audio-output                 write audio to output file
-       -f adts|wav                     audio format: adts or wav
-                                         (adts playback requires modified faad2)
+### Goals and future To-Do's
 
-Examples:
-
-     $ nrsc5 -p 63 -g 490 -w samples1071 107100000 0
-
-     $ nrsc5 -r samples1071 0
+I'd like to create a solution to pipe the AAC data stream to a web stream whether that's over HTTP, RTMP, or another solution.
