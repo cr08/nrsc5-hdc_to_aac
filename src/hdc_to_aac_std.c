@@ -1101,8 +1101,8 @@ void hdc_to_aac(bitreader_t *br, bitwriter_t *bw)
 
 int main(int argc, char *argv[])
 {
-    FILE *fp = fopen(argv[1], "rb");
-    FILE *fout = fopen(argv[2], "wb");
+    FILE *fp = stdin;
+    FILE *fout = stdout;
 
     while (1)
     {
