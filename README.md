@@ -1,6 +1,8 @@
 # HDC_TO_AAC
 
-The included program was taken from an older version of the [NRSC-5](https://github.com/theori-io/nrsc5) repository where it still exists and is usable as a standalone application. It has since been removed from that repo as it is unsupported and some broadcasts may have issues.
+The included program was taken from an older version of the [NRSC-5](https://github.com/theori-io/nrsc5) repository where it still exists and is usable as a standalone application. The purpose of `hdc_to_aac` is to take a raw HDC dump from `nrsc5` which contains AAC/HE-AAC audio data but not compliant with standard decoders, then converts to a compliant AAC file/data stream to use with ffmpeg, VLC, or other applications.
+
+It has since been removed from the upstream NRSC-5 repo as it is unsupported and some broadcasts may have issues.
 
 In my own personal testing with stations local to me, it is 100% usable. That said, this fork is provided as-is with no support.
 
